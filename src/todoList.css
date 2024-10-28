@@ -1,0 +1,56 @@
+.todoList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto 0;
+    color: black;
+}
+
+.todoList-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.todoList-finished {
+    background-color: lightgreen;
+    text-decoration: line-through;
+}
+
+.todoList-mark {
+    margin-right: 10px;
+    color: black;
+    width: 20px;
+}
+
+.todoList-trash {
+    width: 20px;
+}
+
+.todoList-item-title {
+    margin-right: 10px;
+}
+
+.todoList-item-description {
+    margin-right: 10px;
+}
+
+.todoList-item-date {
+    margin-right: 10px;
+}
+
+.todoList-item-delete {
+    margin-left: auto;
+}
+
+.todoList-button {
+    background: none !important;
+    padding: 0;
+    border: none;
+}
