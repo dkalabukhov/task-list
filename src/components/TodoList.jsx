@@ -5,14 +5,17 @@ import cn from 'classnames';
 
 export default class TodoForm extends React.Component {
     renderList = () => {
-        const { tasks, deleteTask, markTask } = this.props;
-        return tasks.map((task) => {
+        const { tasks, deleteTask, markTask, tasksUi } = this.props;
+        const readyTasks = [];
+
+        for (const tKey in tasks) {
+            if (tasks[tKey] === null) continue;
             const itemClasses = cn('todoList-item', {
-                'todoList-finished': task.finished,
+                'todoList-finished': tasksUi[tKey]?.status,
             });
-            return (
+            readyTasks.push (
                 <div key={uniqueId()} className={itemClasses}>
-                    <button onClick={markTask(task.id)} className="todoList-button">
+                    <button onClick={markTask(tKey)} className="todoList-button">
                         <svg className="todoList-mark" fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 512 512" xmlSpace="preserve">
                             <g>
@@ -37,17 +40,18 @@ export default class TodoForm extends React.Component {
                             </g>
                         </svg>
                     </button>
-                    <span className="todoList-item-title">{task.title}</span>
-                    <span className="todoList-item-description">{task.description}</span>
-                    <span className="todoList-item-date ">{task.date}</span>
-                    <button onClick={deleteTask(task.id)} className="todoList-item-delete todoList-button">
+                    <span className="todoList-item-title">{tasks[tKey]?.title}</span>
+                    <span className="todoList-item-description">{tasks[tKey]?.description}</span>
+                    <span className="todoList-item-date ">{tasks[tKey]?.date}</span>
+                    <button onClick={deleteTask(tKey)} className="todoList-item-delete todoList-button">
                         <svg className="todoList-trash" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 9H22M19 14H22M19 19H21M16 6L15.1991 18.0129C15.129 19.065 15.0939 19.5911 14.8667 19.99C14.6666 20.3412 14.3648 20.6235 14.0011 20.7998C13.588 21 13.0607 21 12.0062 21H7.99377C6.93927 21 6.41202 21 5.99889 20.7998C5.63517 20.6235 5.33339 20.3412 5.13332 19.99C4.90607 19.5911 4.871 19.065 4.80086 18.0129L4 6M2 6H18M14 6L13.7294 5.18807C13.4671 4.40125 13.3359 4.00784 13.0927 3.71698C12.8779 3.46013 12.6021 3.26132 12.2905 3.13878C11.9376 3 11.523 3 10.6936 3H9.30643C8.47705 3 8.06236 3 7.70951 3.13878C7.39792 3.26132 7.12208 3.46013 6.90729 3.71698C6.66405 4.00784 6.53292 4.40125 6.27064 5.18807L6 6M12 10V17M8 10L7.99995 16.9998" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                 </div>
             );
-        });
+        }
+        return readyTasks;
     };
 
     render() {
